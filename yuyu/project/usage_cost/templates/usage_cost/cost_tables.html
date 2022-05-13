@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block main %}
+    {% if invoice %}
+        <div>
+            <dl class="dl-horizontal">
+                <dt>Invoice Month</dt>
+                <dd>
+                    <select id="invoice_select" onchange="onInvoiceChange(this.value)">
+                        {% for i in invoice_list %}
+                            <option value="{{ i.id }}" {% if i.id == invoice.id %}
+                                    selected {% endif %}>{{ i.start_date|date:"M Y" }}</option>
+                        {% endfor %}
+                    </select>
+                </dd>
+                <dt>Invoice State</dt>
+                <dd>{{ invoice.state_text }}</dd>
+                <dt>Subtotal</dt>
+                <dd>{{ invoice.subtotal_money }}</dd>
+                {% if invoice.state != 1 %}
+                    <dt>Tax</dt>
+                    <dd>{{ invoice.tax_money }}</dd>
+                    <dt>Total</dt>
+                    <dd>{{ invoice.total_money }}</dd>
+                {% endif %}
+            </dl>
+        </div>
+
+        <div id="instance-cost">
+            {{ instance_cost_table.render }}
+        </div>
+
+        <div id="volume-cost">
+            {{ volume_cost_table.render }}
+        </div>
+        <div id="floating-ip-cost">
+            {{ floating_ip_cost_table.render }}
+        </div>
+        <div id="router-cost">
+            {{ router_cost_table.render }}
+        </div>
+        <div id="snapshot-cost">
+            {{ snapshot_cost_table.render }}
+        </div>
+        <div id="image-cost">
+            {{ image_cost_table.render }}
+        </div>
+    {% else %}
+        <h1>Billing not enabled or you don't have any usage yet</h1> <br/>
+    {% endif %}
+{% endblock %}
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript">
+        function onInvoiceChange(val) {
+            var search = "?invoice_id=" + val;
+            window.location.href = window.location.protocol + "//" + window.location.host + window.location.pathname + search;
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block main %}
+    <div>
+        <dl class="dl-horizontal">
+            <dt>Project: </dt>
+            <dd>
+                <select id="project_select" onchange="onProjectSelect(this.value)">
+                    {% for i in project_list %}
+                        <option
+                                value='{"project_id": "{{ i.id }}", "project_name": "{{ i.name }}"}'
+                                {% if i.id == current_project_id %}selected {% endif %}
+                        >{{ i.name }}</option>
+                    {% endfor %}
+                </select>
+            </dd>
+        </dl>
+    </div>
+    {{ table.render }}
+{% endblock %}
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript">
+        function onProjectSelect(val) {
+            console.log(val)
+            const data = JSON.parse(val);
+            var search = "?project_id=" + data.project_id + "&project_name=" + data.project_name;
+            window.location.href = window.location.protocol + "//" + window.location.host + window.location.pathname + search;
+        }
+    </script>
+{% endblock %}

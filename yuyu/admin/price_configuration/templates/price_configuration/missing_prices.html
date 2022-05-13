@@ -1,0 +1,70 @@
+{% if missing_price.flavor %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Flavor price not complete
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+
+{% if missing_price.volume %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Volume price not complete
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if missing_price.fip %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Floating IP price not complete
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if missing_price.router %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Router IP price not complete
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if missing_price.snapshot %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Snapshot price not complete
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if missing_price.image %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Image price not complete
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+
+
+

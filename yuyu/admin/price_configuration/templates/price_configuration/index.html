@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Price Configuration" %}{% endblock %}
+
+{% block main %}
+    {% include "admin/price_configuration/missing_prices.html" %}
+
+    <div class="row">
+        <div class="col-sm-12">
+            {{ tab_group.render }}
+        </div>
+    </div>
+{% endblock %}
