@@ -2,48 +2,53 @@
 {% block title %}{{ page_title }}{% endblock %}
 {% block main %}
     {% if invoice %}
-        <div>
-            <dl class="dl-horizontal">
-                <dt>Invoice Month</dt>
-                <dd>
-                    <select id="invoice_select" onchange="onInvoiceChange(this.value)">
-                        {% for i in invoice_list %}
-                            <option value="{{ i.id }}" {% if i.id == invoice.id %}
-                                    selected {% endif %}>{{ i.start_date|date:"M Y" }}</option>
-                        {% endfor %}
-                    </select>
-                </dd>
-                <dt>Invoice State</dt>
-                <dd>{{ invoice.state_text }}</dd>
-                <dt>Subtotal</dt>
-                <dd>{{ invoice.subtotal_money }}</dd>
-                {% if invoice.state != 1 %}
-                    <dt>Tax</dt>
-                    <dd>{{ invoice.tax_money }}</dd>
-                    <dt>Total</dt>
-                    <dd>{{ invoice.total_money }}</dd>
-                {% endif %}
-            </dl>
-        </div>
+        <button onclick="javascript:downloadPdf();" class="btn btn-default">Download PDF</button>
+        <br/>
+        <br/>
+        <div id="usage_cost">
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>Invoice Month</dt>
+                    <dd>
+                        <select id="invoice_select" onchange="onInvoiceChange(this.value)">
+                            {% for i in invoice_list %}
+                                <option value="{{ i.id }}" {% if i.id == invoice.id %}
+                                        selected {% endif %}>{{ i.start_date|date:"M Y" }}</option>
+                            {% endfor %}
+                        </select>
+                    </dd>
+                    <dt>Invoice State</dt>
+                    <dd>{{ invoice.state_text }}</dd>
+                    <dt>Subtotal</dt>
+                    <dd>{{ invoice.subtotal_money }}</dd>
+                    {% if invoice.state != 1 %}
+                        <dt>Tax</dt>
+                        <dd>{{ invoice.tax_money }}</dd>
+                        <dt>Total</dt>
+                        <dd>{{ invoice.total_money }}</dd>
+                    {% endif %}
+                </dl>
+            </div>
 
-        <div id="instance-cost">
-            {{ instance_cost_table.render }}
-        </div>
+            <div id="instance-cost">
+                {{ instance_cost_table.render }}
+            </div>
 
-        <div id="volume-cost">
-            {{ volume_cost_table.render }}
-        </div>
-        <div id="floating-ip-cost">
-            {{ floating_ip_cost_table.render }}
-        </div>
-        <div id="router-cost">
-            {{ router_cost_table.render }}
-        </div>
-        <div id="snapshot-cost">
-            {{ snapshot_cost_table.render }}
-        </div>
-        <div id="image-cost">
-            {{ image_cost_table.render }}
+            <div id="volume-cost">
+                {{ volume_cost_table.render }}
+            </div>
+            <div id="floating-ip-cost">
+                {{ floating_ip_cost_table.render }}
+            </div>
+            <div id="router-cost">
+                {{ router_cost_table.render }}
+            </div>
+            <div id="snapshot-cost">
+                {{ snapshot_cost_table.render }}
+            </div>
+            <div id="image-cost">
+                {{ image_cost_table.render }}
+            </div>
         </div>
     {% else %}
         <h1>Billing not enabled or you don't have any usage yet</h1> <br/>
@@ -51,10 +56,26 @@
 {% endblock %}
 {% block js %}
     {{ block.super }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+            integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script type="text/javascript">
         function onInvoiceChange(val) {
             var search = "?invoice_id=" + val;
             window.location.href = window.location.protocol + "//" + window.location.host + window.location.pathname + search;
+        }
+
+        function downloadPdf() {
+            let opt = {
+                filename: 'usage_cost.pdf',
+                margin: [16, 16],
+                enableLinks: true,
+                image: {type: 'jpeg', quality: 0.98},
+                pagebreak: { mode: 'avoid-all', },
+                jsPDF: {unit: 'mm', format: 'a4', orientation: 'portrait'},
+            }
+            html2pdf().set(opt).from(document.getElementById('usage_cost')).save();
         }
     </script>
 {% endblock %}

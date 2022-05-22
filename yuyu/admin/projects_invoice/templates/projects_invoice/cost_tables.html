@@ -13,6 +13,9 @@
                href="{% url 'horizon:admin:projects_invoice:rollback_to_unpaid' invoice.id %}?next={{ request.path }}">Rollback
                 to Unpaid</a>
         {% endif %}
+
+        <button onclick="javascript:downloadPdf();" class="btn btn-default">Download PDF</button>
+
         <br/>
         <br/>
         <div>
@@ -57,10 +60,26 @@
 {% endblock %}
 {% block js %}
     {{ block.super }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+            integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script type="text/javascript">
         function onInvoiceChange(val) {
             var search = "?invoice_id=" + val;
             window.location.href = window.location.protocol + "//" + window.location.host + window.location.pathname + search;
+        }
+
+        function downloadPdf() {
+            let opt = {
+                filename: 'usage_cost.pdf',
+                margin: [16, 16],
+                enableLinks: true,
+                image: {type: 'jpeg', quality: 0.98},
+                pagebreak: { mode: 'avoid-all', },
+                jsPDF: {unit: 'mm', format: 'a4', orientation: 'portrait'},
+            }
+            html2pdf().set(opt).from(document.getElementById('usage_cost')).save();
         }
     </script>
 {% endblock %}
