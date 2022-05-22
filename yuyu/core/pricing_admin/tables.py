@@ -12,6 +12,8 @@ class BaseCreatePrice(tables.LinkAction):
     def allowed(self, request, datum):
         if self.single_data and len(self.table.data) >= 1:
             self.classes = [c for c in self.classes] + ['hidden']
+        else:
+            self.classes = [c for c in self.classes if c != 'hidden']
 
         return True
 

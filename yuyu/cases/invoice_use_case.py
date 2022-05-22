@@ -13,7 +13,6 @@ class InvoiceUseCase:
         response = yuyu_client.get(request, f"invoice/simple_list/?tenant_id={tenant_id}")
         data = response.json()
 
-        print(data)
         for d in data:
             zero_money = Money(amount=0, currency=d['subtotal_currency'])
             d['start_date'] = dateutil.parser.isoparse(d['start_date'])

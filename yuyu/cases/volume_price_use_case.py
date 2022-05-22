@@ -9,13 +9,19 @@ class VolumePriceUseCase(PricingUseCase):
         data = list(super().list(request))
 
         for d in data:
-            d["name"] = api.cinder.volume_type_get(request, d['volume_type_id']).name
+            try:
+                d["name"] = api.cinder.volume_type_get(request, d['volume_type_id']).name
+            except Exception:
+                d["name"] = 'Invalid Volume'
 
         return data
 
     def get(self, request, id):
         data = super().get(request, id)
-        data["name"] = api.cinder.volume_type_get(request, data['volume_type_id']).name
+        try:
+            data["name"] = api.cinder.volume_type_get(request, data['volume_type_id']).name
+        except Exception:
+            data["name"] = 'Invalid Volume'
         return data
 
     def has_missing_price(self, request):

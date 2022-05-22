@@ -20,7 +20,7 @@ class FlavorPriceUseCase(PricingUseCase):
     def get(self, request, id):
         data = super().get(request, id)
         try:
-            flavor = api.nova.flavor_get(request, d['flavor_id'])
+            flavor = api.nova.flavor_get(request, data['flavor_id'])
             data["name"] = flavor.name
         except Exception:
             data["name"] = 'Invalid Flavor'
