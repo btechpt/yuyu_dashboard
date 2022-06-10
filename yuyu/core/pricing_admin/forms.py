@@ -8,8 +8,8 @@ from horizon import messages
 
 
 class BasePriceForm(forms.SelfHandlingForm):
-    hourly_price = MoneyField(label=_("Hourly Price"))
-    monthly_price = MoneyField(label=_("Monthly Price"), required=False)
+    hourly_price = MoneyField(label=_("Hourly Price"), min_value=0, max_digits=10)
+    monthly_price = MoneyField(label=_("Monthly Price"), min_value=0, max_digits=10, required=False)
 
     USE_CASE: PricingUseCase = None
     NAME = ""

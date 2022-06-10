@@ -59,7 +59,7 @@ class FlavorPriceAddFormView(forms.ModalFormView):
         added_ids = []
         flavors = []
         try:
-            added_ids = map(lambda x: x['flavor_id'], self.flavor_price_uc.list(self.request))
+            added_ids = list(map(lambda x: x['flavor_id'], self.flavor_price_uc.list(self.request)))
             flavors = api.nova.flavor_list(self.request)
         except neutron_exc.ConnectionFailed:
             exceptions.handle(self.request)
@@ -73,7 +73,7 @@ class FlavorPriceAddFormView(forms.ModalFormView):
                 flavor_list.append((flavor.id, flavor.name))
 
         if not flavor_list:
-            flavor_list = [(None, _("No flavors available"))]
+            flavor_list = [('', _("No flavors available"))]
         return {'flavor_list': flavor_list}
 
 
@@ -131,7 +131,7 @@ class VolumePriceAddFormView(forms.ModalFormView):
         added_ids = []
         volumes = []
         try:
-            added_ids = map(lambda x: x['volume_type_id'], self.volume_price_uc.list(self.request))
+            added_ids = list(map(lambda x: x['volume_type_id'], self.volume_price_uc.list(self.request)))
             volumes = api.cinder.volume_type_list(self.request)
         except neutron_exc.ConnectionFailed:
             exceptions.handle(self.request)
@@ -145,7 +145,7 @@ class VolumePriceAddFormView(forms.ModalFormView):
                 volume_list.append((d.id, d.name))
 
         if not volume_list:
-            volume_list = [(None, _("No volume type available"))]
+            volume_list = [('', _("No volume type available"))]
         return {'volume_type_list': volume_list}
 
 

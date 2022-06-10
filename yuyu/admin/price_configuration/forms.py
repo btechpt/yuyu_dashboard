@@ -11,7 +11,7 @@ from openstack_dashboard.dashboards.yuyu.core.pricing_admin.forms import BasePri
 
 
 class FlavorPriceForm(BasePriceForm):
-    flavor = forms.ThemableChoiceField(label=_("Flavor"))
+    flavor = forms.ThemableChoiceField(label=_("Flavor"), required=True)
 
     USE_CASE = FlavorPriceUseCase()
     NAME = "Flavor Price"
@@ -29,7 +29,7 @@ class FlavorPriceForm(BasePriceForm):
 
 
 class VolumePriceForm(BasePriceForm):
-    volume_type = forms.ThemableChoiceField(label=_("Volume Type"))
+    volume_type = forms.ThemableChoiceField(label=_("Volume Type"), required=True)
 
     USE_CASE = VolumePriceUseCase()
     NAME = "Volume Price"
@@ -59,6 +59,7 @@ class RouterPriceForm(BasePriceForm):
 class SnapshotPriceForm(BasePriceForm):
     USE_CASE = SnapshotPriceUseCase()
     NAME = "Snapshot Price"
+
 
 class ImagePriceForm(BasePriceForm):
     USE_CASE = ImagePriceUseCase()

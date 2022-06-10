@@ -115,12 +115,24 @@ class UsageCostView(tables.MultiTableView):
         context['invoice'] = self.request.invoice
         return context
 
+    def _get_flavor_name(self, flavor_id):
+        try:
+            return api.nova.flavor_get(self.request, flavor_id).name
+        except Exception:
+            return 'Invalid Flavor'
+
+    def _get_volume_name(self, volume_type_id):
+        try:
+            return api.cinder.volume_type_get(self.request, volume_type_id).name
+        except Exception:
+            return 'Invalid Volume'
+
     def get_instance_cost_data(self):
         try:
             datas = map(lambda x: {
                 "id": x['id'],
                 "name": x['name'],
-                "flavor": api.nova.flavor_get(self.request, x['flavor_id']).name,
+                "flavor": self._get_flavor_name(x['flavor_id']),
                 "usage": timesince(
                     dateutil.parser.isoparse(x['start_date']),
                     dateutil.parser.isoparse(x['adjusted_end_date'])
@@ -144,7 +156,7 @@ class UsageCostView(tables.MultiTableView):
                     dateutil.parser.isoparse(x['start_date']),
                     dateutil.parser.isoparse(x['adjusted_end_date'])
                 ),
-                'type': api.cinder.volume_type_get(self.request, x['volume_type_id']).name,
+                'type': self._get_volume_name(x['volume_type_id']),
                 'size': x['space_allocation_gb'],
                 "cost": Money(amount=x['price_charged'], currency=x['price_charged_currency'])
             }, self.request.invoice.get('volumes', []))
