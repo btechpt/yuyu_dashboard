@@ -10,16 +10,11 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from django.conf.urls import url
+from django.utils.translation import ugettext_lazy as _
 
-from . import views
+import horizon
 
-urlpatterns = [
-    url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^enable_billing$', views.EnableBillingView.as_view(), name='enable_billing'),
-    url(r'^disable_billing$', views.DisableBillingView.as_view(), name='disable_billing'),
-    url(r'^reset_billing$', views.ResetBillingView.as_view(), name='reset_billing'),
-    url(r'^update_setting/$',
-        views.UpdateSettingView.as_view(), name='update_setting'),
-]
 
+class BillingSetting(horizon.Panel):
+    name = _("Billing Setting")
+    slug = "billing_setting"

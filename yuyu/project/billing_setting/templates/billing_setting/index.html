@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Billing Setting" %}{% endblock %}
+
+{% block main %}
+    {# Form #}
+    <div class="row">
+        <div class="col-sm-12">
+            {{ table.render }}
+        </div>
+    </div>
+{% endblock %}

@@ -18,6 +18,7 @@ ln -sf $root/yuyu/local/enabled/_6111_project_billing_panel_group.py $horizon_pa
 ln -sf $root/yuyu/local/enabled/_6112_project_billing_overview.py $horizon_path/openstack_dashboard/local/enabled/_6112_project_billing_overview.py
 ln -sf $root/yuyu/local/enabled/_6113_project_billing_usage_cost.py $horizon_path/openstack_dashboard/local/enabled/_6113_project_billing_usage_cost.py
 ln -sf $root/yuyu/local/enabled/_6114_project_billing_invoice.py $horizon_path/openstack_dashboard/local/enabled/_6114_project_billing_invoice.py
+ln -sf $root/yuyu/local/enabled/_6115_project_billing_setting.py $horizon_path/openstack_dashboard/local/enabled/_6115_project_billing_setting.py
 
 echo "Symlink Creation Done"
 echo "Now you can configure and yuyu dashboard"
