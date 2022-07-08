@@ -4,6 +4,14 @@
 
 {% block main %}
     {% include "admin/price_configuration/missing_prices.html" %}
+    {% include "admin/billing_setting/missing_billing_setting.html" %}
+
+    {# Form #}
+    <div class="row">
+        <div class="col-sm-12">
+            {{ table.render }}
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-sm-12">
@@ -13,8 +21,7 @@
             {% else %}
                 <h1>Billing Disabled</h1> <br/>
                 <p>Please make sure all price is already configured before enable billing</p>
-
-                <a href="{% url 'horizon:admin:billing_setting:enable_billing' %}" class="btn btn-primary {% if missing_price.has_missing %} disabled {% endif %}">Enable</a>
+                <a href="{% url 'horizon:admin:billing_setting:enable_billing' %}" class="btn btn-primary {% if missing_price.has_missing or missing_setting.has_missing %} disabled {% endif %}">Enable</a>
                 <a href="{% url 'horizon:admin:billing_setting:reset_billing' %}" class="btn btn-danger">Reset Billing Data</a>
             {% endif %}
         </div>
