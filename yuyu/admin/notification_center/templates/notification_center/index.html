@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Notification Center" %}{% endblock %}
+
+{% block main %}
+
+    <div class="row">
+        <div class="col-sm-6">
+            <dl class="dl-horizontal">
+                <dt>Project: </dt>
+                <dd>
+                    <select id="selection" onchange="onSelection(this.value)">
+                        <option value='{}'
+                                {% if not current_tenant_id %}selected {% endif %}
+                        >All</option>
+
+                        <option
+                                value='{"tenant_id": "0"}'
+                                {% if "0" == current_tenant_id %}selected {% endif %}
+                        >General Notification
+                        </option>
+
+                        {% for i in select_list %}
+                            <option
+                                    value='{"tenant_id": "{{ i.id }}"}'
+                                    {% if i.id == current_tenant_id %}selected {% endif %}
+                            >{{ i.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-6 text-right">
+                <a href="{% url 'horizon:admin:notification_center:read_all'  current_tenant_id %}"
+                   class="btn btn-primary" style="margin-bottom: 8px">Mark to Read All</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {{ table.render }}
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript">
+        function onSelection(val) {
+            const data = JSON.parse(val);
+
+            if(data !== null){
+                var search = "?tenant_id=" + data.tenant_id;
+                window.location.href = window.location.protocol + "//" + window.location.host + window.location.pathname + search;
+            }else {
+                window.location.href = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            }
+
+        }
+    </script>
+{% endblock %}

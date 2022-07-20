@@ -13,6 +13,7 @@ ln -sf $root/yuyu/local/enabled/_6103_admin_billing_price_configuration.py $hori
 ln -sf $root/yuyu/local/enabled/_6104_admin_billing_setting.py $horizon_path/openstack_dashboard/local/enabled/_6104_admin_billing_setting.py
 ln -sf $root/yuyu/local/enabled/_6104_admin_billing_setting.py $horizon_path/openstack_dashboard/local/enabled/_6104_admin_billing_setting.py
 ln -sf $root/yuyu/local/enabled/_6105_admin_billing_projects_invoice.py $horizon_path/openstack_dashboard/local/enabled/_6105_admin_billing_projects_invoice.py
+ln -sf $root/yuyu/local/enabled/_6106_admin_notification_center.py $horizon_path/openstack_dashboard/local/enabled/_6105_admin_notification_center.py
 
 ln -sf $root/yuyu/local/enabled/_6111_project_billing_panel_group.py $horizon_path/openstack_dashboard/local/enabled/_6111_project_billing_panel_group.py
 ln -sf $root/yuyu/local/enabled/_6112_project_billing_overview.py $horizon_path/openstack_dashboard/local/enabled/_6112_project_billing_overview.py
