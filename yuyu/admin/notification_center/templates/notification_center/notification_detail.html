@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Detail Notification" %}{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            {% if not notification.sent_status %}
+                <a href="{% url 'horizon:admin:notification_center:resend'  notification.id%}"
+                   class="btn btn-primary" style="margin-bottom: 8px">Resend Notification</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading"><strong>{{ notification.title  }}/{{ notification.id }}</strong></div>
+              <div class="panel-body">
+                  <span><strong>Description:</strong></span>
+                  <p>{{ notification.short_description }}</p>
+              </div>
+                <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Recipient</th>
+                          <th scope="col">Sent Status</th>
+                          <th scope="col">Is Read</th>
+                          <th scope="col">Created At</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{ notification.project.email_notification }}</td>
+                          <td>{{ notification.sent_status }}</td>
+                          <td>{{ notification.is_read }}</td>
+                          <td>{{ notification.created_at }}</td>
+                        </tr>
+                      </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {% autoescape off %}{{ notification.content }}{% endautoescape %}
+
+        </div>
+    </div>
+{% endblock %}

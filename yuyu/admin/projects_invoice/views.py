@@ -44,7 +44,6 @@ class IndexView(tables.DataTableView):
         context['project_list'], _ = api.keystone.tenant_list(self.request, user=self.request.user.id)
         context['current_project_id'] = self.request.GET.get('project_id', self.request.user.project_id)
         context['current_project_name'] = self.request.GET.get('project_name', self.request.user.project_id)
-        print(context['project_list'])
         return context
 
     def get_data(self):
