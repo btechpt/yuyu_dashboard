@@ -16,7 +16,7 @@ from openstack_dashboard.dashboards.yuyu.admin.projects_invoice import views
 
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^invoice/pdf/(?P<project_id>[^/]+)/(?P<id>[^/]+)/$', views.InvoiceView.as_view(), name='download_pdf'),
+    url(r'^invoice/detail/(?P<project_id>[^/]+)/(?P<id>[^/]+)/$', views.InvoiceView.as_view(), name='invoice_detail'),
     url(r'^invoice/usage/(?P<project_id>[^/]+)/(?P<id>[^/]+)/$', views.UsageCostView.as_view(), name='usage_cost'),
     url(r'^invoice/finish/(?P<id>[^/]+)/$', views.FinishInvoice.as_view(), name='finish_invoice'),
     url(r'^invoice/rollback_to_unpaid/(?P<id>[^/]+)/$', views.RollbackToUnpaidInvoice.as_view(),

@@ -25,6 +25,7 @@ from horizon import views
 from openstack_dashboard import api
 from openstack_dashboard.dashboards.yuyu.cases.invoice_use_case import InvoiceUseCase
 from .tables import InvoiceTable
+from ...cases.setting_use_case import SettingUseCase
 from ...core.utils.invoice_utils import state_to_text
 
 
@@ -55,15 +56,22 @@ class IndexView(tables.DataTableView):
 
 class InvoiceView(views.APIView):
     page_title = _("Invoice")
-    template_name = "project/invoice/download_pdf.html"
 
     invoice_uc = InvoiceUseCase()
+    setting_uc = SettingUseCase()
+
+    def get_template_names(self):
+        if self.request.GET.get('print', None):
+            return ['project/invoice/invoice_download.html']
+        else:
+            return ['project/invoice/invoice.html']
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         invoice = self.invoice_uc.get_invoice(self.request, self.kwargs['id'])
         context['invoice'] = invoice
-
+        context['setting'] = self.setting_uc.get_settings(self.request)
         context['instance_cost'] = self.get_sum_price(invoice, 'instances')
         context['volume_cost'] = self.get_sum_price(invoice, 'volumes')
         context['fip_cost'] = self.get_sum_price(invoice, 'floating_ips')

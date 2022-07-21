@@ -13,7 +13,7 @@ class SettingForm(forms.SelfHandlingForm):
     company_logo = forms.URLField(label=_("COMPANY LOGO URL"),
                                   required=False)
     company_address = forms.CharField(label=_("COMPANY ADDRESS"),
-                                      required=False)
+                                      required=False, widget=forms.Textarea())
     email_admin = forms.EmailField(label=_("EMAIL ADMIN"),
                                    required=True)
 

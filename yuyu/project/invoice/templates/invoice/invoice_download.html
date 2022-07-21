@@ -1,0 +1,13 @@
+<html>
+<head>
+    <title>Invoice Download</title>
+  {% include "_stylesheets.html" %}
+</head>
+<body>
+{% include 'project/invoice/base_invoice.html' %}
+{% include "horizon/_scripts.html" %}
+<script type="text/javascript">
+    window.print();
+</script>
+</body>
+</html>

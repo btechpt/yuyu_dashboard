@@ -1,0 +1,155 @@
+<style>
+    .invoice {
+        padding: 30px;
+    }
+
+    .invoice h2 {
+        margin-top: 0px;
+        line-height: 0.8em;
+    }
+
+    .invoice .small {
+        font-weight: 300;
+    }
+
+    .invoice hr {
+        margin-top: 10px;
+        border-color: #ddd;
+    }
+
+    .invoice .table tr.line {
+        border-bottom: 1px solid #ccc;
+    }
+
+    .invoice .table td {
+        border: none;
+    }
+
+    .invoice .identity {
+        margin-top: 10px;
+        font-size: 1.1em;
+        font-weight: 300;
+    }
+
+    .invoice .identity strong {
+        font-weight: 600;
+    }
+
+
+    .grid {
+        position: relative;
+        width: 100%;
+        background: #fff;
+        color: #666666;
+        border-radius: 2px;
+        margin-bottom: 25px;
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+<div id="invoice">
+    <div class="container">
+        <div class="row">
+            <!-- BEGIN INVOICE -->
+            <div class="col-xs-12">
+                <div class="grid invoice">
+                    <div class="grid-body">
+                        <div class="invoice-title">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <img src="{{ setting.company_logo }}" alt="" height="50">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h2>invoice<br>
+                                        <span class="small">order #{{ invoice.id }}</span></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <address style="max-width: 30%;">
+                                    {{ setting.company_name }} <br/>
+                                    {{ setting.company_address }}
+                                </address>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <address>
+                                    <strong>Invoice Month:</strong><br>
+                                    {{ invoice.start_date|date:"M Y" }}
+                                    <br>
+                                    <br>
+                                    <strong>Invoice State:</strong><br>
+                                    {{ invoice.state_text }}
+                                </address>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>ORDER SUMMARY</h3>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr class="line">
+                                        <td><strong>#</strong></td>
+                                        <td width="70%"><strong>COMPONENT</strong></td>
+                                        <td class="text-right"><strong>TOTAL COST</strong></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><strong>Instance</strong></td>
+                                        <td class="text-right">{{ instance_cost }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td><strong>Volume</strong></td>
+                                        <td class="text-right">{{ volume_cost }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td><strong>Floating IP</strong></td>
+                                        <td class="text-right">{{ fip_cost }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td><strong>Router</strong></td>
+                                        <td class="text-right">{{ router_cost }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td><strong>Snapshot</strong></td>
+                                        <td class="text-right">{{ snapshot_cost }}</td>
+                                    </tr>
+                                    <tr class="line">
+                                        <td>6</td>
+                                        <td><strong>Image</strong></td>
+                                        <td class="text-right">{{ image_cost }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-right"><strong>Subtotal</strong></td>
+                                        <td class="text-right"><strong>{{ invoice.subtotal_money }}</strong></td>
+                                    </tr>
+                                    {% if invoice.state != 1 %}
+                                        <tr>
+                                            <td colspan="2" class="text-right"><strong>Tax</strong></td>
+                                            <td class="text-right"><strong>{{ invoice.tax_money }}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" class="text-right"><strong>Total</strong></td>
+                                            <td class="text-right"><strong>{{ invoice.total_money }}</strong></td>
+                                        </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END INVOICE -->
+        </div>
+    </div>
+</div>

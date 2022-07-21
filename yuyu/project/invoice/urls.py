@@ -17,5 +17,5 @@ from openstack_dashboard.dashboards.yuyu.project.invoice import views
 
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^invoice/pdf/(?P<id>[^/]+)/$', views.InvoiceView.as_view(), name='download_pdf'),
+    url(r'^invoice/detail/(?P<id>[^/]+)/$', views.InvoiceView.as_view(), name='invoice_detail'),
 ]

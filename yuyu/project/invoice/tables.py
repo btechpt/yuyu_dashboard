@@ -10,7 +10,7 @@ class DetailAction(tables.LinkAction):
 
     def get_link_url(self, datum=None, *args, **kwargs):
         print(datum, args, kwargs)
-        return reverse("horizon:project:invoice:download_pdf", kwargs={"id": datum['id']})
+        return reverse("horizon:project:invoice:invoice_detail", kwargs={"id": datum['id']})
 
 
 class InvoiceTable(tables.DataTable):

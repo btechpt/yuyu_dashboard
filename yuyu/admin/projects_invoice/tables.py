@@ -9,7 +9,7 @@ class InvoiceAction(tables.LinkAction):
     verbose_name = "Invoice"
 
     def get_link_url(self, datum=None, *args, **kwargs):
-        return reverse("horizon:admin:projects_invoice:download_pdf", kwargs={
+        return reverse("horizon:admin:projects_invoice:invoice_detail", kwargs={
             "id": datum['id'],
             "project_id": datum['project_id'],
         })

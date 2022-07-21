@@ -2,6 +2,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from horizon import tables
+from horizon.utils import filters as utils_filters
 
 
 class NotificationFilterAction(tables.FilterAction):
@@ -15,7 +16,8 @@ class NotificationTable(tables.DataTable):
     recipient = tables.Column("recipient", verbose_name=_("Recipient"))
     sent_status = tables.Column("sent_status", verbose_name=_("Sent Status"))
     is_read = tables.Column("is_read", verbose_name=_("Is Read"))
-    created_at = tables.Column("created_at", verbose_name=_("Created At"))
+    created_at = tables.Column("created_at", verbose_name=_("Date Time"), filters=(utils_filters.parse_isotime,),
+                               sortable=True)
 
     def get_object_id(self, obj):
         return obj["id"]
@@ -24,4 +26,4 @@ class NotificationTable(tables.DataTable):
         name = "list_notification_center"
         verbose_name = _("Notification Center")
         multi_select = False
-        table_actions = (NotificationFilterAction, )
+        table_actions = (NotificationFilterAction,)
