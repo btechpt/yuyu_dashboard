@@ -2,6 +2,7 @@ from openstack_dashboard.dashboards.yuyu.cases.flavor_price_use_case import Flav
 from openstack_dashboard.dashboards.yuyu.cases.floating_ip_price_use_case import FloatingIpPriceUseCase
 from openstack_dashboard.dashboards.yuyu.cases.image_price_use_case import ImagePriceUseCase
 from openstack_dashboard.dashboards.yuyu.cases.router_price_use_case import RouterPriceUseCase
+from openstack_dashboard.dashboards.yuyu.cases.snapshot_price_use_case import SnapshotPriceUseCase
 from openstack_dashboard.dashboards.yuyu.cases.volume_price_use_case import VolumePriceUseCase
 
 
@@ -10,7 +11,7 @@ def has_missing_price(request):
     volume_price_uc = VolumePriceUseCase()
     fip_price_uc = FloatingIpPriceUseCase()
     router_price_uc = RouterPriceUseCase()
-    snapshot_price_uc = RouterPriceUseCase()
+    snapshot_price_uc = SnapshotPriceUseCase()
     image_price_uc = ImagePriceUseCase()
 
     context = {

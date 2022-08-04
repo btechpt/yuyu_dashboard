@@ -28,6 +28,6 @@ class SettingUseCase:
             context['has_missing'] = True
             return context
 
-        context['has_missing'] = True
+        context['has_missing'] = False
 
         return context
