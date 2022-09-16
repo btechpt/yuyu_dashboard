@@ -1,10 +1,20 @@
 from openstack_dashboard.dashboards.yuyu.core import yuyu_client
 
+from django.utils.html import format_html
+
 
 class SettingUseCase:
 
     def get_settings(self, request):
         response = yuyu_client.get(request, "settings/").json()
+
+        if response["company_logo"]:
+            # convert base64 img
+            response['company_logo'] = format_html(
+                '<img height="50" src="data:;base64,{}">',
+                response['company_logo']
+            )
+
         return response
 
     def set_setting(self, request, key, value):

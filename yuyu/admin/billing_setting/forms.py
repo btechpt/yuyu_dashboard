@@ -1,3 +1,5 @@
+import base64
+
 from django.utils.translation import ugettext_lazy as _
 
 from horizon import forms, messages, exceptions
@@ -10,8 +12,9 @@ class SettingForm(forms.SelfHandlingForm):
 
     company_name = forms.CharField(label=_("COMPANY NAME"),
                                    required=False)
-    company_logo = forms.URLField(label=_("COMPANY LOGO URL"),
-                                  required=False)
+
+    company_logo = forms.ImageField(label=_("COMPANY LOGO"),
+                                   required=False)
     company_address = forms.CharField(label=_("COMPANY ADDRESS"),
                                       required=False, widget=forms.Textarea())
     email_admin = forms.EmailField(label=_("EMAIL ADMIN"),
@@ -19,6 +22,17 @@ class SettingForm(forms.SelfHandlingForm):
 
     invoice_tax = forms.IntegerField(label=_("INVOICE TAX (%)"),
                                      required=True)
+
+    def clean(self):
+        data = super(SettingForm, self).clean()
+        company_logo = data.get('company_logo', None)
+
+        if company_logo:
+            company_logo = self.files['company_logo'].read()
+            encoded_string = base64.b64encode(company_logo)
+            data["company_logo"] = encoded_string
+
+        return data
 
     def handle(self, request, data):
         try:
