@@ -14,7 +14,7 @@ class SettingForm(forms.SelfHandlingForm):
                                    required=False)
 
     company_logo = forms.ImageField(label=_("COMPANY LOGO"),
-                                   required=False)
+                                    required=False)
     company_address = forms.CharField(label=_("COMPANY ADDRESS"),
                                       required=False, widget=forms.Textarea())
     email_admin = forms.EmailField(label=_("EMAIL ADMIN"),
@@ -38,6 +38,9 @@ class SettingForm(forms.SelfHandlingForm):
         try:
             result = ""
             for k, v in data.items():
+                if k == 'company_logo' and v is None:
+                    continue
+
                 result = self.USE_CASE.set_setting(
                     request=request,
                     key=k,

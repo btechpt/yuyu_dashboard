@@ -42,7 +42,7 @@ class IndexView(tables.DataTableView):
             for d in self.invoice_uc.get_simple_list(self.request):
                 data.append({
                     'id': d['id'],
-                    'date': formats.date_format(d['start_date'], 'M Y'),
+                    'date': formats.date_format(d['start_date'], 'd M Y'),
                     'state': state_to_text(d['state']),
                     'total': d['total_money'] or d['subtotal_money']
                 })

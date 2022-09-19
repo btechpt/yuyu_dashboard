@@ -5,10 +5,10 @@ from django.utils.html import format_html
 
 class SettingUseCase:
 
-    def get_settings(self, request):
+    def get_settings(self, request, transform_logo=True):
         response = yuyu_client.get(request, "settings/").json()
 
-        if response["company_logo"]:
+        if transform_logo and response["company_logo"]:
             # convert base64 img
             response['company_logo'] = format_html(
                 '<img height="50" src="data:;base64,{}">',
@@ -22,10 +22,9 @@ class SettingUseCase:
             "value": value
         }).json()
 
-    def get_setting_admin(self, request):
-        keys_to_exclude = ['billing_enabled',
-                           'email_notification']
-        response = self.get_settings(request)
+    def get_setting_admin(self, request, transform_logo=True):
+        keys_to_exclude = ['billing_enabled']
+        response = self.get_settings(request, transform_logo=transform_logo)
 
         return [x for x in response.items() if x[0] not in keys_to_exclude]
 

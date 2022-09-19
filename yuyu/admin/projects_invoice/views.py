@@ -55,7 +55,7 @@ class IndexView(tables.DataTableView):
                 data.append({
                     'id': d['id'],
                     'project_id': project_id,
-                    'date': formats.date_format(d['start_date'], 'M Y'),
+                    'date': formats.date_format(d['start_date'], 'd M Y'),
                     'state': state_to_text(d['state']),
                     'total': d['total_money'] or d['subtotal_money']
                 })

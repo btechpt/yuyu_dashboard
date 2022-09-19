@@ -11,6 +11,7 @@
 # under the License.
 from django import shortcuts
 from django.urls import reverse_lazy
+from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
 from horizon import views, exceptions, messages, tables, forms
@@ -30,12 +31,11 @@ class IndexView(tables.DataTableView):
 
     def get_data(self):
         try:
-            setting_uc = self.setting_uc.get_setting_admin(self.request)
-
-        except Exception:
+            setting_uc = self.setting_uc.get_setting_admin(self.request, )
+        except Exception as e:
             setting_uc = []
             exceptions.handle(self.request,
-                              _("Unable to retrieve data."))
+                              _("Unable to retrieve data." + str(e)))
         return setting_uc
 
     def get_context_data(self, **kwargs):
@@ -65,7 +65,9 @@ class UpdateSettingView(forms.ModalFormView):
 
     def get_initial(self):
         try:
-            setting_uc = dict(self.setting_uc.get_setting_admin(self.request))
+            setting_uc = dict(self.setting_uc.get_setting_admin(self.request, transform_logo=False))
+            # Remove company logo from initial data because we can't show image in the form
+            del setting_uc['company_logo']
         except Exception:
             setting_uc = None
             exceptions.handle(self.request,
