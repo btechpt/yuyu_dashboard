@@ -24,7 +24,7 @@ Add this config to your horizon `local_settings.py`
 
 ```bash
 YUYU_URL="http://yuyu_server_url:8182"
-CURRENCIES = ('IDR', 'USD')
+CURRENCIES = ('IDR',)
 DEFAULT_CURRENCY = "IDR"
 ```
 

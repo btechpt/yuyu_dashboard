@@ -78,6 +78,10 @@
                             <div class="col-xs-6 text-right">
                                 <address>
                                     <strong>Invoice Month:</strong><br>
+                                    {{ invoice.start_date|date:"M Y" }}
+                                    <br>
+                                    <br>
+                                    <strong>Issue Date:</strong><br>
                                     {{ invoice.start_date|date:"d M Y" }}
                                     <br>
                                     <br>
