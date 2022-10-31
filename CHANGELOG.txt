@@ -1,0 +1,28 @@
+v1.0.1
+---------------------------
+- Add multi region support
+- Update error message on project cost
+
+v1.0
+---------------------------
+- Fixing some bugs
+- Upload logo for your invoice
+- Add currency to overview
+- Add description for setting form
+
+
+v1.0-beta
+----------------------------
+- Setting company profile
+- Send invoice to email
+- Notification center
+- Update invoice format
+
+
+v1.0-alpha
+----------------------------
+- Price Configuration
+- Project Overview
+- Project Invoice
+- Usage Cost
+- Billing Settings

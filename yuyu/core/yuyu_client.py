@@ -7,7 +7,14 @@ def _get_header(request):
 
 
 def _yuyu_url(request, path):
-    return settings.YUYU_URL + "/api/" + path
+    yuyu_url = settings.YUYU_URL
+    if hasattr(settings, 'YUYU_URL_REGION'):
+        regions = dict(settings.YUYU_URL_REGION)
+        region_url = regions.get(request.session['region_name'])
+        if region_url:
+            yuyu_url = region_url
+
+    return yuyu_url + "/api/" + path
 
 
 def get(request, path):
