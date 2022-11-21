@@ -1,5 +1,6 @@
 import base64
 
+from django.core import validators
 from django.utils.translation import ugettext_lazy as _
 
 from horizon import forms, messages, exceptions
@@ -17,7 +18,7 @@ class SettingForm(forms.SelfHandlingForm):
                                     required=False)
     company_address = forms.CharField(label=_("COMPANY ADDRESS"),
                                       required=False, widget=forms.Textarea())
-    email_admin = forms.EmailField(label=_("EMAIL ADMIN"),
+    email_admin = forms.CharField(label=_("EMAIL ADMIN"),
                                    required=True)
 
     invoice_tax = forms.IntegerField(label=_("INVOICE TAX (%)"),
@@ -33,6 +34,14 @@ class SettingForm(forms.SelfHandlingForm):
             data["company_logo"] = encoded_string
 
         return data
+
+    def clean_email_admin(self):
+        email_admin = self.cleaned_data['email_admin']
+        split_email = email_admin.replace(" ", "").split(",")
+        for email in split_email:
+            validators.validate_email(email)
+
+        return email_admin
 
     def handle(self, request, data):
         try:

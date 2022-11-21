@@ -1,3 +1,4 @@
+from django.core import validators
 from django.utils.translation import ugettext_lazy as _
 
 from horizon import forms, messages, exceptions
@@ -8,8 +9,16 @@ class SettingForm(forms.SelfHandlingForm):
     NAME = "Settings"
     USE_CASE = ProjectOverviewUseCase()
 
-    email_notification = forms.EmailField(label=_("EMAIL NOTIFICATION"),
+    email_notification = forms.CharField(label=_("EMAIL NOTIFICATION"),
                                           required=True)
+
+    def clean_email_notification(self):
+        email_notification = self.cleaned_data['email_notification']
+        split_email = email_notification.replace(" ", "").split(",")
+        for email in split_email:
+            validators.validate_email(email)
+
+        return email_notification
 
     def handle(self, request, data):
         try:

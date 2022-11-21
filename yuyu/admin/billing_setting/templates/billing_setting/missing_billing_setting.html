@@ -1,20 +1,44 @@
+
+{% if missing_setting.company_name %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Company Name not complete
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if missing_setting.company_address %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Company Address not complete
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if missing_setting.company_logo %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Company Logo not complete
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+
 {% if missing_setting.invoice_tax %}
     <div class="row">
         <div class="col-md-12">
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 Tax not complete
-            </div>
-        </div>
-    </div>
-{% endif %}
-
-{% if missing_setting.email_notification %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="alert alert-danger alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                Project Email Notification not complete
             </div>
         </div>
     </div>
@@ -31,8 +55,3 @@
         </div>
     </div>
 {% endif %}
-
-
-
-
-

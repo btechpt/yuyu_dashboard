@@ -22,4 +22,4 @@ ln -sf $root/yuyu/local/enabled/_6114_project_billing_invoice.py $horizon_path/o
 ln -sf $root/yuyu/local/enabled/_6115_project_billing_setting.py $horizon_path/openstack_dashboard/local/enabled/_6115_project_billing_setting.py
 
 echo "Symlink Creation Done"
-echo "Now you can configure and yuyu dashboard"
+echo "Now you can configure and use yuyu dashboard"
