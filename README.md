@@ -1,3 +1,12 @@
+# Repository Moved
+This project has been moved to a new organization! https://github.com/Yuyu-billing
+
+See our new home at:
+- https://yuyu-billing.dev/
+- https://github.com/Yuyu-billing/yuyu
+- https://github.com/Yuyu-billing/yuyu_dashboard
+
+
 # Yuyu
 
 ## Setup
